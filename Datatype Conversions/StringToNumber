@@ -1,0 +1,46 @@
+-- 22.06.2017 10:20:59 AR V1.0a
+
+block.setSize(51, 26)
+
+generic = {
+  parameter = {
+  },
+
+  init = function(self)
+    block.setInputsPinCount(1)
+    block.setInputPinTypeRestrains(1, 'string')
+    block.setOutputsPinCount(1)
+    block.modifyFlags('SupressStartFunctionCall', true)
+    block.modifyFlags('SupressStopFunctionCall', true)
+  end,
+
+  open = function(self)
+    gui.add('Info', 'Info', 'String to number', 'Convert a number to string')
+    gui.setSize()
+  end,
+
+  apply = function(self)
+  end,
+
+  close = function()
+  end,
+
+  avatar = function(self)
+    return block.getDefaultAvatar(0x50, "'S\\xE2\\x86\\x92N'")
+  end,
+
+  generate = function(self)
+
+    return
+      [==[
+        return {
+
+          step = tonumber
+
+        }
+      ]==]
+
+  end,
+
+}
+

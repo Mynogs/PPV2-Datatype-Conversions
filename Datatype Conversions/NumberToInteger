@@ -1,0 +1,81 @@
+-- 22.06.2017 10:20:59 AR V1.0a
+
+block.setSize(51, 26)
+
+generic = {
+  parameter = {
+    type = 0
+  },
+
+  init = function(self)
+    block.setInputsPinCount(1)
+    block.setOutputsPinCount(1)
+    block.modifyFlags('SupressStartFunctionCall', true)
+    block.modifyFlags('SupressStopFunctionCall', true)
+  end,
+
+  open = function(self)
+    gui.add('Info', 'Info', 'Number to integer', 'Convert a floating point number to integer number')
+      gui.add('ComboBox', 'ComboBoxType', 'Type', [[
+        Floor
+        Ceil
+        Round
+      ]], {Width = 120})
+    gui.set('ComboBoxType', 'ItemIndex', self.parameter.type)
+    gui.setSize()
+  end,
+
+  apply = function(self)
+    self.parameter.type = gui.get('ComboBoxType', 'ItemIndex')
+  end,
+
+  close = function()
+  end,
+
+  avatar = function(self)
+    return block.getDefaultAvatar(0x50, "'N\\xE2\\x86\\x92I'")
+  end,
+
+  generate = function(self)
+
+    if self.parameter.type == 0 then
+      return
+        [==[
+          return {
+
+            step = math.floor
+
+          }
+        ]==]
+    end
+
+    if self.parameter.type == 1 then
+      return
+        [==[
+          return {
+
+            step = math.ceil
+
+          }
+        ]==]
+    end
+
+    if self.parameter.type == 2 then
+      return
+        [==[
+          local block = {}
+
+          block.step = function(a)
+            return math.floor(a + 0.5)
+          end
+
+          return block
+        ]==]
+    end
+
+
+
+  end,
+
+}
+
