@@ -1,5 +1,5 @@
 # PPV2 Datatype Conversions
-This library is part of the [P+ simulation software](https://github.com/Mynogs/PPV2-Simulation-System).
+This library is part of the [p+ simulation software](https://github.com/Mynogs/PPV2-Simulation-System).
 
 Blocks to convert the datatype of a signal.
 
