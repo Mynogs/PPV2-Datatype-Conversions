@@ -1,0 +1,59 @@
+-- 23.04.2018 16:55:24 AR V1.0a
+-- 21.01.2019 11:22:59 AR V1.0b nil, boolean number and string
+
+block.setSize(51, 26)
+
+generic = {
+  parameter = {
+  },
+
+  init = function(self)
+    block.setInputsPinCount(1)
+    block.setInputPinTypeRestrains(1, 'nil', 'boolean', 'number', 'string', 'table')
+    block.setOutputsPinCount(1)
+    block.setOutputPinTypeRestrains(1, 'nil', 'boolean', 'number', 'string', 'table')
+    block.modifyFlags('SupressStopFunctionCall', true)
+  end,
+
+  open = function(self)
+    gui.add('Info', 'Info', 'Clone table', [[
+      Lua table a always pass by reference.
+      So the modification of a table has an impact on the orgin table.
+      Clone table use the messagePack library to make a copy of the table.
+      So modification has no langer an imparct on the orgin table.
+    ]])
+    gui.setSize()
+  end,
+
+  apply = function(self)
+  end,
+
+  close = function()
+  end,
+
+  avatar = function(self)
+    return block.getDefaultAvatar(0x50, "'\\xE2\\x96\\xB6'")
+  end,
+
+  generate = function(self)
+
+    local source =
+      [==[
+        local block = {}
+
+        block.start = function()
+          block.mp = require 'messagePack'
+        end
+
+        block.step = function(a)
+          return block.mp.unpack(block.mp.pack(a))
+        end
+
+        return block
+      ]==]
+    return source
+
+  end,
+
+}
+
